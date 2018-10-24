@@ -1,1 +1,1 @@
-# brands
+# Brands M2 module

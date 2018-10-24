@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="brands_listing_data_source" xsi:type="string">Animates\Brands\Model\ResourceModel\Brands\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Animates\Brands\Model\ResourceModel\PetTypes\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">animates_pet_types</argument>
+            <argument name="resourceModel" xsi:type="string">Animates\Brands\Model\ResourceModel\PetTypes</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Animates\Brands\Model\ResourceModel\Brands\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">animates_brands</argument>
+            <argument name="resourceModel" xsi:type="string">Animates\Brands\Model\ResourceModel\Brands</argument>
+        </arguments>
+    </virtualType>
+    <preference for="Animates\Brands\Api\Data\BrandsInterface" type="Animates\Brands\Model\Brands" />
+    <preference for="Animates\Brands\Api\BrandsRepositoryInterface" type="Animates\Brands\Model\BrandsRepository" />
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Animates\Brands\Api\Data\BrandsInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">animates_brands</item>
+                    <item name="identifierField" xsi:type="string">brand_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Animates\Brands\Api\Data\BrandsInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Animates\Brands\Api\Data\BrandsInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="petTypesReader" xsi:type="string">Animates\Brands\Model\ResourceModel\Brands\Relation\PetTypes\ReadHandler</item>
+                    </item>
+                    <item name="create" xsi:type="array">
+                        <item name="petTypesCreator" xsi:type="string">Animates\Brands\Model\ResourceModel\Brands\Relation\PetTypes\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="petTypesUpdater" xsi:type="string">Animates\Brands\Model\ResourceModel\Brands\Relation\PetTypes\SaveHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Start Image uploader config -->
+    <virtualType name="Animates\Brands\BrandsImageUpload" type="Animates\Brands\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">animates/tmp/brands</argument>
+            <argument name="basePath" xsi:type="string">animates/brands</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Animates\Brands\Controller\Adminhtml\Brands\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Animates\Brands\BrandsImageUpload</argument>
+        </arguments>
+    </type>
+    <type name="Animates\Brands\Controller\Adminhtml\Brands\Save">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Animates\Brands\BrandsImageUpload</argument>
+        </arguments>
+    </type>
+    <!-- End of Image uploader config -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="import_brand_command" xsi:type="object">Animates\Brands\Console\Command\ImportBrand</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

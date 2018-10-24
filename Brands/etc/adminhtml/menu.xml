@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Animates_Brands::animatesbrands" title="Brands" module="Animates_Brands" sortOrder="320" parent="Animates_Events::main_section_menu" action="animatesbrands/brands" resource="Animates_Brands::animatesbrands"/>
+    </menu>
+</config>
